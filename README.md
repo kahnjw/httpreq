@@ -5,7 +5,7 @@ A simple HTTP request library written in C
 ## Build it
 
 ```
-$ git clone 
+$ git clone git@github.com:kahnjw/httpreq.git
 $ cd httpreq
 $ make
 $ ./req <hostname> <port>
