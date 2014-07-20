@@ -1,4 +1,4 @@
-/* Code from https://gist.github.com/nolim1t/126991 */
+/* Original code from https://gist.github.com/nolim1t/126991 */
 
 #include <stdio.h>
 #include <string.h>
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]){
     bzero(buffer, BUFFER_SIZE);
 
     while(read(fd, buffer, BUFFER_SIZE - 1) != 0){
-        fprintf(stderr, "%s", buffer);
+        fprintf(stdout, "%s\n", buffer);
         bzero(buffer, BUFFER_SIZE);
     }
 
