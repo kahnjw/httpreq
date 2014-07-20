@@ -8,5 +8,10 @@ A simple HTTP request library written in C
 $ git clone git@github.com:kahnjw/httpreq.git
 $ cd httpreq
 $ make
+```
+
+## Use it
+
+```
 $ ./req <hostname> <port>
 ```
