@@ -1,6 +1,6 @@
 # httpreq
 
-A simple HTTP request library written in C
+A simple HTTP GET request library written in C
 
 ## Build it
 
