@@ -13,5 +13,5 @@ $ make
 ## Use it
 
 ```
-$ ./req <method> <hostname> <port>
+$ ./req.o <method> <hostname> <port>
 ```
