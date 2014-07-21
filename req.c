@@ -46,13 +46,16 @@ int main(int argc, char *argv[]){
     int fd;
     char buffer[BUFFER_SIZE];
 
-    if(argc < 3){
-        fprintf(stderr, "Usage: %s <hostname> <port>\n", argv[0]);
+    if(argc < 4){
+        fprintf(stderr, "Usage: %s <method> <hostname> <port>\n", argv[0]);
         exit(1);
     }
 
-    fd = socket_connect(argv[1], atoi(argv[2]));
-    write(fd, "GET /\r\n", strlen("GET /\r\n")); // write(fd, char[]*, len);
+    fd = socket_connect(argv[2], atoi(argv[3]));
+    bzero(buffer, BUFFER_SIZE);
+    sprintf(buffer, "%s /\r\n", argv[1]);
+
+    write(fd, buffer, strlen(buffer));
     bzero(buffer, BUFFER_SIZE);
 
     while(read(fd, buffer, BUFFER_SIZE - 1) != 0){
