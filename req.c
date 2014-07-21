@@ -12,12 +12,15 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#define BUFFER_SIZE 1024
+
+
 int socket_connect(char *host, in_port_t port){
     struct hostent *hp;
     struct sockaddr_in addr;
-    int on = 1, sock;
+    int on = 1, sock, conn;
 
-    if((hp = gethostbyname(host)) == NULL){
+    if((hp = gethostbyname(host)) == NULL) {
         herror("gethostbyname");
         exit(1);
     }
@@ -27,26 +30,26 @@ int socket_connect(char *host, in_port_t port){
     sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
     setsockopt(sock, IPPROTO_TCP, TCP_NODELAY, (const char *)&on, sizeof(int));
 
-    if(sock == -1){
+    if(sock == -1) {
         perror("setsockopt");
         exit(1);
     }
 
-    if(connect(sock, (struct sockaddr *)&addr, sizeof(struct sockaddr_in)) == -1){
+    conn = connect(sock, (struct sockaddr *)&addr, sizeof(struct sockaddr_in));
+
+    if(conn == -1) {
         perror("connect");
         exit(1);
-
     }
+
     return sock;
 }
-
-#define BUFFER_SIZE 1024
 
 int main(int argc, char *argv[]){
     int fd;
     char buffer[BUFFER_SIZE];
 
-    if(argc < 4){
+    if(argc < 4) {
         fprintf(stderr, "Usage: %s <method> <hostname> <port>\n", argv[0]);
         exit(1);
     }
@@ -58,7 +61,7 @@ int main(int argc, char *argv[]){
     write(fd, buffer, strlen(buffer));
     bzero(buffer, BUFFER_SIZE);
 
-    while(read(fd, buffer, BUFFER_SIZE - 1) != 0){
+    while(read(fd, buffer, BUFFER_SIZE - 1) != 0) {
         fprintf(stdout, "%s\n", buffer);
         bzero(buffer, BUFFER_SIZE);
     }
