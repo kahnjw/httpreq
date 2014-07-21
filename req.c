@@ -49,14 +49,14 @@ int main(int argc, char *argv[]){
     int fd;
     char buffer[BUFFER_SIZE];
 
-    if(argc < 4) {
-        fprintf(stderr, "Usage: %s <method> <hostname> <port>\n", argv[0]);
+    if(argc < 5) {
+        fprintf(stderr, "Usage: %s <method> <hostname> <port> <url>\n", argv[0]);
         exit(1);
     }
 
     fd = socket_connect(argv[2], atoi(argv[3]));
     bzero(buffer, BUFFER_SIZE);
-    sprintf(buffer, "%s /\r\n", argv[1]);
+    sprintf(buffer, "%s %s\r\n", argv[1], argv[4]);
 
     write(fd, buffer, strlen(buffer));
     bzero(buffer, BUFFER_SIZE);
